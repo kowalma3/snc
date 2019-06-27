@@ -1,0 +1,12 @@
+git clone https://github.com/kowalma3/snc
+cd snc
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+
+python snc_example.py 00950ad5db86ff00122017a94b96193e -w "some work notes"
+
+python snc_example.py 00950ad5db86ff00122017a94b96193e --get
+
+python.exe snc_example.py 00950ad5db86ff00122017a94b96193e -r
