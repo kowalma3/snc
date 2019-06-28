@@ -105,7 +105,22 @@ def worknotes(sys_id,text):
         exit()
 
 def change_state(sys_id, s):
-    #TO DO
+    state=1
+    if s=='new':
+        state = 1
+    elif s == 'open':
+        state = 2
+    elif s == 'wip':
+        state = -6
+
+    url = host+'/api/now/table/incident/'+sys_id
+    response = requests.put(url, auth=(user, pwd), headers=headers ,data='{"state":"'+str(state)+'"}')
+		 
+    if response.status_code != 200: 
+        print('Status:', response.status_code, 'Headers:', response.headers, 'Error Response:',response.json())
+
+        exit()
+
 
 if __name__=="__main__":
 
@@ -116,7 +131,7 @@ if __name__=="__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('id',help='incident system id')
     parser.add_argument('--get',action='store_true',help='get attachment')
-    parser.add_argument('--ch_status','-c', choices=['new','open','wip']) #wip = work in progress, new=1, open=2, wip=-6, state
+    parser.add_argument('--ch_status','-c', choices=['new','open','wip']) #wip = work in progress, new=1, open=2, wip=-6
     parser.add_argument('--worknotes','-w',help='add worknotes')
     parser.add_argument('--read_details','-r',action='store_true',help='read worknotes')
     parser.add_argument('--assign_to','-a',help='provide your sys_id')
